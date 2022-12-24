@@ -7,6 +7,7 @@ miCursor = miConexion.cursor()
 
 miCursor.execute('SELECT * FROM Productos WHERE SECCION ="Cerámica"')
 
+#fetchall para devolver todos los registros de la consulta sql en un array
 productos = miCursor.fetchall()
 
 print(productos)

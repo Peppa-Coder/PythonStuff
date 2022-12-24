@@ -10,6 +10,8 @@ operacion = ''
 # Variable donde se almacenara la suma de los valores introducidos
 resultado = 0
 
+reset_pantalla=False
+
 # Especificamos que la variable va a contener en su interior un string de caracteres con StringVar
 screenNumber = StringVar()
 
@@ -27,14 +29,12 @@ def numeroPulsado():
 '''
 
 
-# Funcion mejorada que logra obtener lo que hay en pantalla y escribir un numero dependiendo del boton pulsado, asi no creamos una funcion para cada numero
 def numeroPulsado(num):
     global operacion
-    # Si el usuario presiona el boton suma, que no siga concatenando numeros y escriba el nuevo numero
-    if operacion != '':
+    global reset_pantalla
+    if reset_pantalla != False:
         screenNumber.set(num)
-        # Vaciamos la variable operacion para que comience a concatenar nuevamente
-        operacion = ''
+        reset_pantalla = False
     else:
         #Si no, que siga concatenando
         screenNumber.set(screenNumber.get() + num)
@@ -44,16 +44,57 @@ def numeroPulsado(num):
 def suma(num):
     global operacion
     global resultado
+    global reset_pantalla
     # Para que el valor numerico que hay en pantalla se sume al resultado
-    resultado+=float(num)
+    resultado+=int(num)
     operacion = 'suma'
+    reset_pantalla = True
     # Para que al presionar +, en la pantalla aparezca lo que vamos sumando
     screenNumber.set(resultado)
+
+num1=0
+
+contador_resta=0
+
+def resta(num):
+
+    global operacion
+    global resultado
+    global num1
+    global contador_resta
+    global reset_pantalla
+    
+    if contador_resta == 0:
+        num1=int(num)
+        resultado=num1
+    else:
+        if contador_resta == 1:
+            resultado=num1-int(num)
+        else:
+            resultado = int(resultado)-int(num)
+        screenNumber.set(resultado)
+        resultado = screenNumber.get()
+    
+    # Para que el valor numerico que hay en pantalla se reste al resultado
+    contador_resta = contador_resta + 1
+    operacion = 'resta'
+    # Para que al presionar +, en la pantalla aparezca lo que vamos sumando
+    reset_pantalla=True
+
 
 
 # No se puede llamar resultado la funcion porque ya hay una variable global llamada asi
 def resultado_igual():
     global resultado
+    global operacion
+    global contador_resta
+    if operacion == 'suma':
+        screenNumber.set(resultado+int(screenNumber.get()))
+        resultado = 0
+    elif operacion == 'resta':
+        screenNumber.set(int(resultado))-int(screenNumber.get())
+        resultado = 0
+        contador_resta = 0
     # Esto hará que sume lo que está guardado en la variable resultado, mas lo que está en pantalla que aún no se ha sumado
     screenNumber.set(resultado+float(screenNumber.get()))
     # Se resetea la variable resultado para que despues de apretar el boton igual, empiece de 0
@@ -103,7 +144,7 @@ button3 = Button(miFrame, text='3', width=3,
                 command=lambda: numeroPulsado('3'))
 button3.grid(row=4, column=3)
 
-buttonSubt = Button(miFrame, text='-', width=3)
+buttonSubt = Button(miFrame, text='-', width=3, command=lambda:resta(screenNumber.get()))
 buttonSubt.grid(row=4, column=4)
 
 button0 = Button(miFrame, text='0', width=3,
