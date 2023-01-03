@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <!--Ingresando una plantilla-->
+        {% include 'top/barra.html' %}
+        <h2>Usando plantillas en Django </h2>
+        <!--Se utiliza doble llave para llamar las claves del diccionario utilizado en las vistas -->
+        <p>El nombre del profesor es: {{nombre_profesor}} {{apellido_profesor}}</p>
+        <p>Fecha actual: {{fecha_hora.date}}</p>
+        <p>Hora actual: {{fecha_hora.time}}</p>
+        <!--Usamos el metodo(.) capitalize para el nombre y el filtro(|)upper para el apellido
+            Tambien se pueden usar filtros encadenados-->
+        <p>El nombre completo de la persona es: {{nombre_persona.capitalize}} {{apellido_persona.capitalize}} {{nombre_persona|upper|last}}.</p>
+        <!--Se utiliza &(letra a acentuar)acute; para acentuar letras en un texto html-->
+        <p>Esto est&aacute; hecho en el lenguaje de programaci&oacute;n {{lenguajes_programacion.0}}</p>
+        <p><strong>Algunos lenguajes son:</strong></p>
+        <!--Se utilizan llaves para declarar un bucle for o condicionales en una plantilla html, y doble llave para el contenido del bucle for.
+        En la apertura y cierre del bucle deben estar estas llaves acompañadas del caracter "%", donde para indicar el cierre escribiremos endfor.
+        En este caso se crea un bucle for dentro de una lista desordenada de html, para recorrer una lista declarada en la vista prueba_plantilla.-->
+        <p>
+            <ul>
+            {% if lenguajes_programacion %}
+                {% for lenguaje in lenguajes_programacion %}
+                    <li>{{lenguaje}}</li>
+                {% endfor %}
+            {% else %}
+                <p>No hay elementos que mostrar</p>
+            {% endif %}
+            </ul>
+        </p>
+    </body>
+</html>

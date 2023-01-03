@@ -1,0 +1,14 @@
+<!--Plantilla Hija-->
+<!--Importando plantilla formato base (plantilla padre) -->
+{% extends 'base.html' %}
+<!--Modificando titulo de la plantilla padre-->
+{% block title %} Video 10 Curso Django {% endblock %}
+
+<!--Añadiendo contenido a la plantilla con { block content } { endblock } ya que en la plantilla padre, declaramos que este apartado seria variable-->
+{% block content %}
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/d1-UX6aR_TM" title="YouTube video player"
+    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+
+{% endblock %}
