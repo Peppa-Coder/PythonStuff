@@ -1,0 +1,35 @@
+Para crear una app dentro del proyecto, usar este comando: python manage.py startapp gestionPedidos
+Para ver si hay errores usar: python manage.py check gestionPedidos
+    Resultado: System check identified no issues (0 silenced).
+Para hacer la migracion de la base de datos sqlite y que se cree el archivo.bak de la base de datos, utilizar: python manage.py makemigrations
+    Resultado: Migrations for 'gestionPedidos':
+                gestionPedidos\migrations\0001_initial.py
+                    - Create model Articulos
+                    - Create model Clientes
+                    - Create model Pedidos
+
+La base de datos se crerará pero sin tablas en su contenido, para que se cree un codigo sql por django , utilizar: python manage.py sqlmigrate gestionPedidos 0001  (Numero entregado en el makemigrations)
+Para que finalmente se inserten las tablas en la base de datos, utilizar: python manage.py migrate
+Para poder manipular la base de datos desde consola, se debe hacer desde el shell con el codigo: python manage.py shell
+Esto deberia hacerse desde un formulario, pero por mientras lo hacemos asi.
+---Creacion de un articulo en la tabla Articulos desde shell---
+>>> from gestionPedidos.models import Articulos
+>>> art = Articulos(nombre='Mesa', seccion='Comedor', precio=15000)
+>>> art.save() - Comando para ejecutar el codigo sql en segundo plano por django e insertar el dato a la tabla
+Con art2= Articulos.objects.create(nombre='Macetero', seccion='Decoracion', precio=4000) podemos hacer todo en una linea de codigo sin necesidad de usar el .save()
+Modificando precio del primer articulo con: 
+    >>> art.precio=16990
+    >>> art.save()
+Eliminando un articulo:
+    >>> art2= Articulos.objects.get(id=3) 
+    >>> art2.delete()
+Guardando articulos en una lista:
+    >>> Lista = Articulos.objects.all()
+Mostrando articulos de la lista:
+    >>> Lista
+    Resultado:
+        <QuerySet [<Articulos: Articulos object (1)>, <Articulos: Articulos object (2)>]> - Lo que esta en () es el id
+Obteniendo query sql:
+    >>> Lista.query.__str__()
+    Resultado: 
+        'SELECT "gestionPedidos_articulos"."id", "gestionPedidos_articulos"."nombre", "gestionPedidos_articulos"."seccion", "gestionPedidos_articulos"."precio" FROM "gestionPedidos_articulos"'

@@ -1,0 +1,4 @@
+Para trabajar con postgreSQL lo primero que se debe hacer es instalar psycopg2 con el comando:
+    pip install psycopg2
+También se debe cambiar en el archivo settings.py la seccion DATABASES y configurarlo para postgresql, ya que por defecto viene para sqlite
+Se maneja igual que sqlite, con makemigrations, migrate, etc.
