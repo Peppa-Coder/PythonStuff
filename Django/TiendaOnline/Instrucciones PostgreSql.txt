@@ -2,3 +2,19 @@ Para trabajar con postgreSQL lo primero que se debe hacer es instalar psycopg2 c
     pip install psycopg2
 También se debe cambiar en el archivo settings.py la seccion DATABASES y configurarlo para postgresql, ya que por defecto viene para sqlite
 Se maneja igual que sqlite, con makemigrations, migrate, etc.
+Clausula where en postgreSQL: 
+    >>> Clientes.objects.filter(nombre='Daniela')
+    Resultado: Devuelve como objetos
+        <QuerySet [<Clientes: Clientes object (2)>, <Clientes: Clientes object (3)>]>
+Para que no devuelva los datos como objetos, debemos explicarle a nuestro codigo que queremos la clase Clientes, Articulos y Pedidos como cadena de caracteres con una funcion __str__.
+Antes de volver a ejecutar >>> Clientes.objects.filter(nombre='Daniela'), se debe hacer la migracion fuera del shell:
+    python manage.py makemigrations
+    python manage.py migrate  
+Volvemos a ejecutar >>> Clientes.objects.filter(nombre='Daniela') en el shell y ahora se ve como queremos.
+    Resultado: 
+        <QuerySet [<Clientes: El nombre es Daniela, la direccion es Av. Carrascal 6254 y el telefono es 979595209>, <Clientes: El nombre es Daniela, la direccion es Jose Besa 1422 y el telefono es 972898216>]>
+Para poner mas de una clausula en el filter, separar con commas.
+Para usar >, < en las clausulas, remplazar ">" por __gte= y "<" por __lte=
+También se puede usar __range(x,y) para mostrar los datos entre ese rango de valores.
+Para ordenar los valores entregados utilizar luego de cerrar el filter la funcion .order_by('campo'), esto hace que se ordene de menor a mayor (ascendente)
+    Para que se ordene de forma descendente, utilizar .order_by('-campo') agregando el signo "-"

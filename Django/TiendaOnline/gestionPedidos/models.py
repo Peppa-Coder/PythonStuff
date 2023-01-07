@@ -7,6 +7,9 @@ class Clientes(models.Model):
     direccion = models.CharField(max_length=50)
     email = models.EmailField()
     telefono = models.CharField(max_length=9)
+    
+    def __str__(self) -> str:
+        return 'El nombre es %s, la direccion es %s y el telefono es %s' %(self.nombre, self.direccion, self.telefono)   
 
 class Articulos(models.Model):
     nombre = models.CharField(max_length=30)
