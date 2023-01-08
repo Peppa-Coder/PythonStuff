@@ -1,0 +1,12 @@
+Lo primero que se debe hacer para ingresar al panel de administracion de django, es crear un superusuario.
+    Comando: python manage.py createsuperuser
+Al inicio este panel estará casi vacio, esto es porque aún no le hemos dicho a django que queremos manejar en nuestro panel, esto se debe hacer desde el archivo admin.py
+En admin.py importamos los modelos con from gestionPedidos.models import *
+Registramos el modelo Clientes con admin.site.register(Clientes)
+Para hacer que un campo de una tabla sea opcional rellenarlo en el panel de administracion de Django, agregar en los parametros de ese campo blank=True, null=True
+    Ejemplo: 
+        class Clientes(models.Model):
+            email = models.EmailField(blank=True, null=True)
+Como despues de cada cambio se debe hacer la migracion, pues ejecutar los comandos:
+    python manage.py makemigrations
+    python manage.py migrate 
