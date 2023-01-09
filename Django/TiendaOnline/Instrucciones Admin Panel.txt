@@ -10,3 +10,11 @@ Para hacer que un campo de una tabla sea opcional rellenarlo en el panel de admi
 Como despues de cada cambio se debe hacer la migracion, pues ejecutar los comandos:
     python manage.py makemigrations
     python manage.py migrate 
+Para cambiar el nombre de un campo dentro de una tabla, agregar en los parametros del campo verbose_name=''
+    Ejemplo:
+        telefono = models.CharField(max_length=9, verbose_name='celular')
+Para hacer cambio en las clases que estamos trabajando en el panel de admin, utilizar la clase ModelAdmin de django en el archivo admin.py
+Usar list_display = ('campos a mostrar') para mostrar los campos de la tabla en el panel de forma mas amigable.
+search_fields = ('campo1', 'campo2') para buscar por esos campos en una barra de busqueda
+list_filter = ('campo',) para filtrar por un campo de una tabla en especifico
+date_hierarchy = 'campo' para filtrar por todos los meses y años registrados
